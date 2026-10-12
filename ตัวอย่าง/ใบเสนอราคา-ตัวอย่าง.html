@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="th"><head><meta charset="utf-8">
+<title>QT202610-0001</title>
+<style>
+  @page { size: A4; margin: 11mm 12mm; }
+  :root { --accent: #1e3a8a; --tint: color-mix(in srgb, var(--accent) 7%, #fff); --rule: color-mix(in srgb, var(--accent) 22%, #fff); --ink: #1b2330; --muted: #5f6b7a; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: "Leelawadee UI", "Sarabun", Tahoma, sans-serif; font-size: 10.5pt; line-height: 1.45; color: var(--ink); background: #e9ecf1; }
+  .bar { position: sticky; top: 0; z-index: 2; background: #1f2937; color: #fff; padding: 10px 16px; display: flex; gap: 12px; align-items: center; }
+  .bar button { font: inherit; padding: 6px 16px; border: 0; border-radius: 6px; background: #2563eb; color: #fff; cursor: pointer; }
+  .page { position: relative; width: 210mm; min-height: 297mm; margin: 14px auto; padding: 11mm 12mm; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.15); overflow: hidden; }
+  .wm { position: absolute; top: 36%; left: 0; right: 0; text-align: center; font-size: 92pt; font-weight: 700; color: rgba(200,0,0,.08); transform: rotate(-24deg); pointer-events: none; }
+  .muted, .desc { color: var(--muted); }
+  .c { text-align: center; } .r { text-align: right; white-space: nowrap; }
+
+  /* หัวเอกสาร */
+  .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+  .co { display: flex; gap: 12px; align-items: flex-start; min-width: 0; }
+  .co img { max-height: 68px; max-width: 110px; object-fit: contain; }
+  .co h1 { margin: 0 0 3px; font-size: 14.5pt; line-height: 1.25; color: var(--accent); }
+  .co .small { font-size: 9.5pt; color: var(--muted); }
+  .title { text-align: right; flex-shrink: 0; }
+  .title h2 { margin: 0; font-size: 25pt; line-height: 1.1; color: var(--accent); font-weight: 700; }
+  .title .en { letter-spacing: 3.5px; font-size: 9.5pt; color: var(--muted); margin-top: 2px; }
+  .rule { height: 3px; margin: 10px 0 12px; background: linear-gradient(90deg, var(--accent) 0 72%, var(--rule) 72% 100%); border-radius: 2px; }
+
+  /* ลูกค้า + ข้อมูลเอกสาร */
+  .meta { display: flex; gap: 12px; margin-bottom: 12px; }
+  .cust { flex: 1; background: var(--tint); border-left: 4px solid var(--accent); border-radius: 0 6px 6px 0; padding: 9px 12px; }
+  .label { font-size: 8.5pt; letter-spacing: .6px; color: var(--accent); font-weight: 700; margin-bottom: 2px; }
+  .cust strong { font-size: 11.5pt; }
+  .info { width: 70mm; border: 1px solid var(--rule); border-radius: 6px; padding: 9px 12px; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-content: start; }
+  .info .k { color: var(--muted); white-space: nowrap; }
+  .info .v { text-align: right; font-weight: 600; }
+  .info .v.no { color: var(--accent); font-size: 11.5pt; }
+  .subject { margin: 0 0 10px; }
+  .subject b { color: var(--accent); }
+
+  /* ตารางรายการ */
+  table.items { width: 100%; border-collapse: collapse; }
+  table.items th { background: var(--accent); color: #fff; padding: 7px 8px; font-weight: 600; font-size: 9.5pt; }
+  table.items th:first-child { border-radius: 6px 0 0 0; } table.items th:last-child { border-radius: 0 6px 0 0; }
+  table.items td { padding: 6px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.items tbody tr:nth-child(even) td { background: var(--tint); }
+  table.items tbody tr:last-child td { border-bottom: 2px solid var(--accent); }
+  table.items tr { break-inside: avoid; }
+  .iname { font-weight: 600; }
+  .desc { font-size: 9.5pt; }
+
+  /* สรุปยอด */
+  .foot { display: flex; justify-content: space-between; gap: 16px; margin-top: 12px; break-inside: avoid; }
+  .notes { flex: 1; min-width: 0; }
+  .baht { background: var(--tint); border-radius: 6px; padding: 7px 12px; margin-bottom: 10px; }
+  .baht span { display: block; font-size: 8.5pt; color: var(--muted); }
+  .baht b { font-size: 10.5pt; }
+  .notes h4 { margin: 0 0 1px; font-size: 9pt; letter-spacing: .4px; color: var(--accent); }
+  .notes .blk { margin-bottom: 8px; font-size: 9.8pt; }
+  .sum { width: 76mm; flex-shrink: 0; }
+  .sum table { width: 100%; border-collapse: collapse; }
+  .sum td { padding: 3.5px 10px; }
+  .sum tr.total td { background: var(--accent); color: #fff; font-weight: 700; font-size: 12.5pt; padding: 8px 10px; }
+  .sum tr.total td:first-child { border-radius: 6px 0 0 6px; font-size: 10.5pt; } .sum tr.total td:last-child { border-radius: 0 6px 6px 0; }
+  .sum tr.gap td { padding: 2px; }
+  .sum tr.wht td { color: var(--muted); }
+
+  /* ลงนาม */
+  .signs { display: flex; gap: 12px; margin-top: 22px; break-inside: avoid; }
+  .sign { flex: 1; text-align: center; border: 1px solid var(--rule); border-radius: 6px; padding: 8px 8px 9px; font-size: 9.8pt; }
+  .sign .space { height: 46px; border-bottom: 1px dotted #8a94a3; margin: 0 14px 5px; }
+  .sign .who { white-space: nowrap; overflow: hidden; }
+  .sign .role { font-weight: 700; color: var(--accent); }
+  .thanks { margin-top: 12px; text-align: center; font-size: 9pt; color: var(--muted); }
+
+  @media print { body { background: #fff; } .bar { display: none; } .page { margin: 0; padding: 0; width: auto; min-height: 0; box-shadow: none; overflow: visible; } }
+</style></head>
+<body>
+
+<div class="page">
+  
+  <div class="head">
+    <div class="co">
+      <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%231e3a8a%22%2F%3E%3Cpath%20d%3D%22M18%2044V20h12a8%208%200%200%201%200%2016H24v8zm6-14h6a2%202%200%200%200%200-4h-6zM40%2044V20h6v24z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E" alt="">
+      <div>
+        <h1>บริษัท ตัวอย่าง จำกัด</h1>
+        <div class="small">99/9 อาคารตัวอย่าง ชั้น 9 ถนนสุขุมวิท แขวงคลองเตย<br>เขตคลองเตย กรุงเทพมหานคร 10110</div>
+        <div class="small">เลขประจำตัวผู้เสียภาษี 0-1055-00000-00-0 (สำนักงานใหญ่)</div>
+        <div class="small">โทร. 02-000-0000 &nbsp;|&nbsp; sales@example.co.th</div>
+      </div>
+    </div>
+    <div class="title"><h2>ใบเสนอราคา</h2><div class="en">QUOTATION</div></div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="meta">
+    <div class="cust">
+      <div class="label">ลูกค้า</div>
+      <strong>บริษัท ลูกค้าตัวอย่าง จำกัด</strong>
+      <div>123 ถนนพระราม 9 แขวงห้วยขวาง เขตห้วยขวาง กรุงเทพมหานคร 10310</div>
+      <div>เลขประจำตัวผู้เสียภาษี 0-1055-11111-11-1 (สำนักงานใหญ่)</div>
+      <div>ผู้ติดต่อ: คุณวิชัย รักงาน &nbsp;|&nbsp; โทร. 08-0000-0000</div>
+    </div>
+    <div class="info">
+      <div class="k">เลขที่</div><div class="v no">QT202610-0001</div>
+      <div class="k">วันที่</div><div class="v">12/10/2569</div>
+      <div class="k">ยืนราคาถึง</div><div class="v">11/11/2569</div>
+      
+      <div class="k">ผู้ขาย</div><div class="v">สมหญิง ขายดี</div>
+    </div>
+  </div>
+
+  <p class="subject"><b>เรื่อง</b> &nbsp;งานพัฒนาเว็บไซต์องค์กรและบริการดูแลระบบรายปี</p>
+
+  <table class="items">
+    <thead><tr>
+      <th style="width:10mm">ลำดับ</th><th style="text-align:left">รายการ</th><th style="width:17mm">จำนวน</th><th style="width:16mm">หน่วย</th>
+      <th style="width:27mm">ราคา/หน่วย</th><th style="width:16mm">ส่วนลด</th><th style="width:29mm">จำนวนเงิน</th>
+    </tr></thead>
+    <tbody><tr>
+    <td class="c">1</td>
+    <td><div class="iname">ออกแบบและพัฒนาเว็บไซต์องค์กร</div><div class="desc">ออกแบบ UX/UI จำนวน 8 หน้า รองรับมือถือ พร้อมระบบจัดการเนื้อหา</div></td>
+    <td class="r">1</td>
+    <td class="c">งาน</td>
+    <td class="r">85,000.00</td>
+    <td class="r">-</td>
+    <td class="r">85,000.00</td>
+  </tr><tr>
+    <td class="c">2</td>
+    <td><div class="iname">ระบบฟอร์มติดต่อและแจ้งเตือนทาง LINE</div></td>
+    <td class="r">1</td>
+    <td class="c">ระบบ</td>
+    <td class="r">12,000.00</td>
+    <td class="r">-</td>
+    <td class="r">12,000.00</td>
+  </tr><tr>
+    <td class="c">3</td>
+    <td><div class="iname">บริการดูแลระบบและสำรองข้อมูล</div><div class="desc">ตรวจสอบระบบรายเดือน สำรองข้อมูลรายวัน</div></td>
+    <td class="r">12</td>
+    <td class="c">เดือน</td>
+    <td class="r">2,500.00</td>
+    <td class="r">10%</td>
+    <td class="r">27,000.00</td>
+  </tr><tr>
+    <td class="c">4</td>
+    <td><div class="iname">อบรมการใช้งานสำหรับผู้ดูแลเว็บไซต์</div></td>
+    <td class="r">2</td>
+    <td class="c">ครั้ง</td>
+    <td class="r">3,500.00</td>
+    <td class="r">-</td>
+    <td class="r">7,000.00</td>
+  </tr></tbody>
+  </table>
+
+  <div class="foot">
+    <div class="notes">
+      <div class="baht"><span>จำนวนเงินรวมทั้งสิ้น (ตัวอักษร)</span><b>หนึ่งแสนสามหมื่นหกพันเก้าร้อยหกสิบบาทถ้วน</b></div>
+      <h4>หมายเหตุ</h4><div class="blk">ราคานี้ไม่รวมค่าจดโดเมนและค่าเช่าโฮสติ้ง</div>
+      <h4>เงื่อนไข</h4><div class="blk">1. ชำระงวดแรก 50% เมื่อยืนยันสั่งซื้อ และส่วนที่เหลือเมื่อส่งมอบงาน<br>2. ระยะเวลาดำเนินงาน 45 วัน นับจากวันที่ได้รับข้อมูลครบถ้วน<br>3. รับประกันแก้ไขข้อผิดพลาดของระบบ 6 เดือน</div>
+    </div>
+    <div class="sum"><table>
+      <tr><td>รวมเป็นเงิน</td><td class="r">131,000.00</td></tr><tr><td>ส่วนลด</td><td class="r">-3,000.00</td></tr><tr><td>มูลค่าก่อนภาษี</td><td class="r">128,000.00</td></tr><tr><td>ภาษีมูลค่าเพิ่ม 7%</td><td class="r">8,960.00</td></tr>
+      <tr class="gap"><td colspan="2"></td></tr>
+      <tr class="total"><td>จำนวนเงินรวมทั้งสิ้น</td><td class="r">136,960.00</td></tr>
+      <tr class="wht"><td>หัก ณ ที่จ่าย 3%</td><td class="r">-3,840.00</td></tr>
+       <tr class="wht"><td><strong>ยอดชำระสุทธิ</strong></td><td class="r"><strong>133,120.00</strong></td></tr>
+    </table></div>
+  </div>
+
+  <div class="signs">
+    <div class="sign">
+    <div class="space"></div>
+    <div class="who">( สมหญิง ขายดี )</div>
+    <div class="role">ผู้เสนอราคา</div>
+    <div class="muted">วันที่ 12/10/2569</div>
+  </div>
+    <div class="sign">
+    <div class="space"></div>
+    <div class="who">( สมชาย ใจดี )</div>
+    <div class="role">ผู้อนุมัติ</div>
+    <div class="muted">วันที่ 12/10/2569</div>
+  </div>
+    <div class="sign">
+    <div class="space"></div>
+    <div class="who">( &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; )</div>
+    <div class="role">ลูกค้าผู้ยืนยันสั่งซื้อ</div>
+    <div class="muted">วันที่ ....... / ....... / .......</div>
+  </div>
+  </div>
+  <div class="thanks">ขอขอบคุณที่ให้โอกาสเสนอราคา</div>
+</div>
+</body></html>
